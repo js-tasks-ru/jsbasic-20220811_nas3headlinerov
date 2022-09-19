@@ -6,6 +6,7 @@ export default class RibbonMenu {
     this.render();
     this.selector();
     this.slideShift();
+    this.selectCategory();    
   }
   render() {
     this.elem = createElement(`
@@ -31,92 +32,53 @@ export default class RibbonMenu {
   slideShift() {
     const arrowRight = this.selector('.ribbon__arrow_right');
     const arrowLeft = this.selector('.ribbon__arrow_left');
+    const inner = this.selector('.ribbon__inner');    
+    arrowRight.addEventListener('click', () => { 
+      inner.scrollBy(350, 0);
+    });  
+    arrowLeft.addEventListener('click', () => {  
+      inner.scrollBy(-350, 0);
+    }); 
+    inner.addEventListener('scroll', () => {        
+      this.checkArrows();     
+    });   
+  } 
+  checkArrows() {
+    const arrowRight = this.selector('.ribbon__arrow_right');
+    const arrowLeft = this.selector('.ribbon__arrow_left');
     const inner = this.selector('.ribbon__inner');
     let scrollLeft = inner.scrollLeft;
     let scrollWidth = inner.scrollWidth;
     let clientWidth = inner.clientWidth;
     let scrollRight = scrollWidth - scrollLeft - clientWidth;
-    console.log(scrollLeft);
-    
-    arrowRight.addEventListener('click', () => { 
-      // this.counter = ++this.counter;
-      inner.scrollBy(350, 0);
-      
-      // this.checkCounter();
-    });  
-    arrowLeft.addEventListener('click', () => {  
-      // this.counter = --this.counter;  
-      inner.scrollBy(-350, 0);
-      console.log(scrollLeft);
-      // console.log(scrollLeft);
-      // console.log(scrollRight);
-      // console.log(scrollWidth);
-      // console.log(clientWidth);
-      // this.checkCounter();
-    }); 
-    inner.addEventListener('scroll', () => {
-      console.log(scrollRight);
-      console.log(scrollLeft);
-      if (scrollLeft > 0) {
-        
-        
-        
-        arrowLeft.classList.add('ribbon__arrow_visible');
-      } else {
-        arrowLeft.classList.remove('ribbon__arrow_visible');
-      }
-      if (scrollRight < 1) {
-        arrowRight.classList.remove('ribbon__arrow_visible');
-      } else {
-        arrowRight.classList.add('ribbon__arrow_visible');
-      }
-    });
-    
-
-    
-
-    
+    if (scrollLeft == 0) {      
+      arrowLeft.classList.remove('ribbon__arrow_visible');
+    } else {        
+      arrowLeft.classList.add('ribbon__arrow_visible');
+    }
+    if (scrollRight < 1) {
+      arrowRight.classList.remove('ribbon__arrow_visible');
+    } else {
+      arrowRight.classList.add('ribbon__arrow_visible');
+    }
   }
-  
-  
+  selectCategory() {
+    this.elem.addEventListener('click', event => { 
+      event.preventDefault();  
+      let currentCategory = event.target.closest('.ribbon__item');       
+      if (currentCategory) {        
+        let id = currentCategory.dataset.id;
+        let myEvent = new CustomEvent("ribbon-select", {
+          detail: id, 
+          bubbles: true
+        });
+        this.elem.dispatchEvent(myEvent);
+        let currentActiveCategory = this.selector('.ribbon__item_active');
+        if (currentActiveCategory) {
+          currentActiveCategory.classList.remove('ribbon__item_active');
+        }
+        event.target.classList.add('ribbon__item_active');
+      }
+    });       
+  }
 }
-
-
-// export default [
-//   {
-//     id: '',
-//     name: 'All'
-//   },
-//   {
-//     id: 'salads',
-//     name: 'Salads'
-//   },
-//   {
-//     id: 'soups',
-//     name: 'Soups'
-//   },
-//   {
-//     id: 'chicken-dishes',
-//     name: 'Chicken dishes'
-//   },
-//   {
-//     id: 'beef-dishes',
-//     name: 'Beef dishes'
-//   },
-//   {
-//     id: 'seafood-dishes',
-//     name: 'Seafood dishes'
-//   },
-//   {
-//     id: 'vegetable-dishes',
-//     name: 'Vegetable dishes'
-//   },
-//   {
-//     id: 'bits-and-bites',
-//     name: 'Bits and bites'
-//   },
-//   {
-//     id: 'on-the-side',
-//     name: 'On the side'
-//   }
-// ];
