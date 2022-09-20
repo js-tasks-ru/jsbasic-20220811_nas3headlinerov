@@ -57,6 +57,6 @@ export default class Modal {
   closeOnEsc(event) {
     if (event.code === 'Escape') {
       this.close();
-    }
+    }  
   }
 }
