@@ -122,5 +122,5 @@ export default class StepSlider {
         thumb.onpointermove = null;        
       };      
     };
-  }  
+  } 
 }
