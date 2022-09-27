@@ -38,12 +38,13 @@ export default class CartIcon {
     window.addEventListener('resize', () => this.updatePosition());
   }
 
-  updatePosition() {
-    let initialTopCoord = this.elem.getBoundingClientRect().top;  
-    let firstElementOffset = document.querySelector('.container').getBoundingClientRect().right + 20;
-    let rightOffsetScreen = document.documentElement.clientWidth - this.elem.offsetWidth - 10;
-    let minOffset = Math.min(firstElementOffset, rightOffsetScreen) + 'px';
-    if (this.elem.offsetWidth && document.documentElement.clientWidth > 767) {      
+  updatePosition() {    
+    if (this.elem.offsetWidth && document.documentElement.clientWidth > 767) {
+      let initialTopCoord = this.elem.getBoundingClientRect().top;  
+      let containerRight = document.querySelector('.container').getBoundingClientRect().right;
+      let firstElementOffset = containerRight + 20;
+      let rightOffsetScreen = document.documentElement.clientWidth - this.elem.offsetWidth - 10;
+      let minOffset = Math.min(firstElementOffset, rightOffsetScreen) + 'px';      
       if (document.documentElement.scrollTop > initialTopCoord) {
         Object.assign(this.elem.style, {
           position: 'fixed',
