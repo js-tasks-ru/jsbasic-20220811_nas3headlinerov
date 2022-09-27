@@ -44,7 +44,6 @@ export default class CartIcon {
     let rightOffsetScreen = document.documentElement.clientWidth - this.elem.offsetWidth - 10;
     let minOffset = Math.min(firstElementOffset, rightOffsetScreen) + 'px';
 
-    
     if (this.elem.offsetWidth && document.documentElement.clientWidth > 767) {      
       if (document.documentElement.scrollTop > initialTopCoord) {
         Object.assign(this.elem.style, {
