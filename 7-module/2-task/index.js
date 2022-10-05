@@ -42,7 +42,6 @@ export default class Modal {
     let body = this.selector('.modal__body');
     body.innerHTML = '';
     body.append(modalBody);
-    console.log(modalBody);
   }
   close() {
     document.removeEventListener('keydown', this.closeOnEscListener);
