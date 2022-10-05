@@ -6,4 +6,3 @@ export default function promiseClick(button) {
     { once: true });    
   });  
 }
-let btn = document.querySelector('button');
