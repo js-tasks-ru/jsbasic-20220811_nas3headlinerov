@@ -7,7 +7,7 @@ export default class ProductCard {
     this.productAdd();
   }
   elem() {
-    let elem = createElement(`
+    this.elem = createElement(`
       <div class="card">
         <div class="card__top">
           <img src="/assets/images/products/${this.product.image}" class="card__image" alt="product">
@@ -20,13 +20,12 @@ export default class ProductCard {
           </button>
         </div>
       </div>
-    `);
-    this.elem = elem;       
+    `);      
   }
   productAdd() {
     this.elem.addEventListener('click', event => {
       let btn = document.querySelector('.card__button');
-      if (event.target == btn) {
+      if (btn) {
         let myEvent = new CustomEvent("product-add", {
           detail: this.product.id, 
           bubbles: true
