@@ -87,7 +87,6 @@ export default class StepSlider {
     let thumb = this.selector('.slider__thumb');
     thumb.ondragstart = () => false;
     let slider = this.elem;
-    // thumb.ondragstart = () => false;
     function onPointerMove(pointermoveEvent) {
       pointermoveEvent.preventDefault();
       let left = pointermoveEvent.clientX - slider.getBoundingClientRect().left;
